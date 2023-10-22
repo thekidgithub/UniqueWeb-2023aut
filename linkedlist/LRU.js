@@ -42,7 +42,6 @@ class LRU {
         return currentNode;
     }
     remove(Node) {
-
         if (!this.head) {
             return;
         }
