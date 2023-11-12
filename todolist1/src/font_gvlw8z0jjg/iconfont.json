@@ -1,0 +1,30 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "248925",
+      "name": "down",
+      "font_class": "down",
+      "unicode": "e664",
+      "unicode_decimal": 58980
+    },
+    {
+      "icon_id": "4767093",
+      "name": "check",
+      "font_class": "check",
+      "unicode": "e7fc",
+      "unicode_decimal": 59388
+    },
+    {
+      "icon_id": "32959458",
+      "name": "close .icon-close",
+      "font_class": "a-closeicon-close",
+      "unicode": "e74d",
+      "unicode_decimal": 59213
+    }
+  ]
+}

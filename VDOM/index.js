@@ -131,9 +131,28 @@ const vdom7 =
       createElement('span', { id: 'g', 'key': 'g' },
         ['g'])
     ]);//TEXT <==> NODE
-
+const vdom8 =
+  createElement('div', { id: 'a', 'key': 'a' },
+    [
+      createElement('span', { id: 'b', 'key': 'b' },
+        ['b']),
+      createElement('div', { id: 'c', 'key': 'c' },
+        [
+          createElement('span', { id: 'ee', 'key': 'ee' },
+            ['ee']),
+            createElement('span', { id: 'd', 'key': 'd' },
+            ['d']),
+          createElement('span', { id: 'f', 'key': 'f' },
+            ['f']),
+            createElement('span', { id: 'ff', 'key': 'ff' },
+            ['ff']),
+        ]),
+      createElement('span', { id: 'g', 'key': 'g' },
+        ['g'])
+    ]);
+    
 const mode = 1;
-const targetDOM = vdom2;
+const targetDOM = vdom8;
 if (mode === 1) {
   const patches = diff(vdom1, targetDOM);
   const target = render(vdom1);
@@ -141,7 +160,7 @@ if (mode === 1) {
     const subTarget = render(targetDOM);
     con.appendChild(subTarget);
   }
-  else if (!vdom2) {
+  else if (!targetDOM) {
     con.appendChild(render(vdom1));
   }
   else {

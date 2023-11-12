@@ -33,3 +33,6 @@ doValueAsync(1)
   .catch((err) => {
     console.error(err);
   });
+const obj = {c:1}
+const a = () => {console.log(this);}
+new a;

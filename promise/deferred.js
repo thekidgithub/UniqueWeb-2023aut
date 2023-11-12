@@ -56,7 +56,7 @@ class Deferred {
       if (called) return;
       called = true;
       // 异步调用
-      setTimeout(() => {
+      queueMicrotask(() => {
         this.value = value;
         this.status = 'FULFILLED';
         //依次执行队列中的函数
@@ -69,7 +69,7 @@ class Deferred {
       if (called) return;
       called = true;
       // 异步调用
-      setTimeout(() => {
+      queueMicrotask(() => {
         this.value = reason;
         this.status = 'REJECTED';
         for (const fn of this.rejectQueue) {
@@ -87,7 +87,7 @@ class Deferred {
   then(onResolve, onReject) {
     let newPromise;
     // 解决值穿透
-    onResolve = typeof onResolve === 'function' ? onResolve : value => { return value; }
+    onResolve = typeof onResolve === 'function' ? onResolve : value => value;
     onReject = typeof onReject === 'function' ? onReject : reason => { throw reason; }
     // 等待状态，将回调放入队列中 
     if (this.status === 'PENDING') {
@@ -116,7 +116,7 @@ class Deferred {
       const isFulfilled = this.status === 'FULFILLED';
       return newPromise = new Deferred((resolve, reject) => {
         //注意异步
-        setTimeout(() => {
+        queueMicrotask(() => {
           try {
             const value = isFulfilled ? onResolve(innerValue) : onReject(innerValue);
             promiseResolve(newPromise, value, resolve, reject);
@@ -175,7 +175,7 @@ class Deferred {
         }, reject);
       }
       // 放入异步队列
-      setTimeout(() => {
+      queueMicrotask(() => {
         for (let i = 0; i < length; i++) {
           done(i, promises[i]);
         }
@@ -209,7 +209,7 @@ const delayDouble = (num, time) => new Deferred((resolve) => {
   }, time);
 });
 
-let mode = 1;
+let mode = 4;
 if (mode === 1) {
   new Deferred(resolve => {
     setTimeout(() => {

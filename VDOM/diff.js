@@ -150,11 +150,11 @@ function flattenArray(arr) {//扁平化
 }
 
 function sortChildren(oldChildren, newChildren) {
-  // 找出变化后的子节点中带 key 的 vdom (keys)，和不带 key 的 vdom (free)
+  // 找出变化后的子节点中带 key 的 vdom (keys)
   const newChildIndex = keyIndex(newChildren);
   const newKeys = newChildIndex.keys;
 
-  // 找出变化前的子节点中带 key 的 vdom (keys)，和不带 key 的 vdom (free)
+  // 找出变化前的子节点中带 key 的 vdom (keys)
   const oldChildIndex = keyIndex(oldChildren);
   const oldKeys = oldChildIndex.keys;
 
