@@ -1,18 +1,18 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Home from './views/Home.vue'
-import About1 from './views/About1.vue'
-import About2 from './views/About2.vue'
-import UserInfo from './views/UserInfo.vue'
-import UserHome from './views/UserHome.vue'
-import UserProfile from './views/UserProfile.vue'
-import UserSettings from './views/UserSettings.vue'
-import EmailSetting from './views/EmailSetting.vue'
-import PasswordSetting from './views/PasswordSetting.vue'
-import PasswordConfirm from './views/PasswordConfirm.vue'
-import Login from './views/Login.vue'
-import VerifyCode from './views/VerifyCode.vue'
-import Store from './views/Store.vue'
-import { useAuthStore } from './stores/store.js'
+import { createRouter, createWebHistory } from 'vue-router';
+import Home from './views/Home.vue';
+import About1 from './views/About1.vue';
+import About2 from './views/About2.vue';
+import UserInfo from './views/UserInfo.vue';
+import UserHome from './views/UserHome.vue';
+import UserProfile from './views/UserProfile.vue';
+import UserSettings from './views/UserSettings.vue';
+import EmailSetting from './views/EmailSetting.vue';
+import PasswordSetting from './views/PasswordSetting.vue';
+import PasswordConfirm from './views/PasswordConfirm.vue';
+import Login from './views/Login.vue';
+import VerifyCode from './views/VerifyCode.vue';
+import Store from './views/Store.vue';
+import { useAuthStore } from './stores/store.js';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -35,7 +35,7 @@ const router = createRouter({
     },
     {
       path: '/login',
-      name: 'Login',
+      name: 'login',
       component: Login
     },
     {
@@ -91,13 +91,14 @@ const router = createRouter({
   ],
 })
 
-
+let isFirstVisit = true;
 router.beforeEach(async (to) => {
   const Auth = useAuthStore();
-  if (!Auth.isAuthenticated && to.name !== 'Login') {
+  if (!Auth.isAuthenticated && to.name !== 'login' && !isFirstVisit) {
     alert('请先登陆');
-    return { name: 'Login' }
+    return { name: 'login' };
   }
+  isFirstVisit = false;
 })
 
-export default router
+export default router;

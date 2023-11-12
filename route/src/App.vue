@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView } from 'vue-router';
 import { useAuthStore } from './stores/store';
 const logout = () => {
   const Auth = useAuthStore();
