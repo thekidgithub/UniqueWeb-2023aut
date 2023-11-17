@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signin</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Signin</h1>
+    <form>
+      <label for="email">Email</label>
+      <input type="text" name="email" id="email" required>
+      <span></span>
+      <label for="username">Username</label>
+      <input type="text" name="username" id="username" required>
+      <span></span>
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" placeholder="8位以上，包含数字和大小写字母" required>
+      <span></span>
+      <label for="confirm-password">Confirm Password</label>
+      <input type="password" id="confirm-password" name="confirmedPassword" required>
+      <span></span>
+      <button type="submit">Signin</button>
+    </form>
+    <a href="/login">login</a>
+  </div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  const signinForm = document.querySelector('form');
+  const inputs = document.querySelectorAll('input');
+  const errors = document.querySelectorAll('span');
+  signinForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = signinForm.elements.email.value;
+    const username = signinForm.elements.username.value;
+    const password = signinForm.elements.password.value;
+    const confirmedPassword = signinForm.elements.confirmedPassword.value;
+    inputs.forEach(e => e.classList.remove('error'));
+    errors.forEach(e => e.classList.remove('error'));
+    try {
+      const response = await axios.post('/signin', { email, username, password, confirmedPassword });
+      response.data.forEach((e) => {
+        switch(e.code) {
+          case 0:
+            window.location.href = '/';
+            break;
+          case 1:
+            inputs[0].classList.add('error');
+          errors[0].classList.add('error');
+          errors[0].innerHTML = '邮箱已存在';
+          break;
+          case 2:
+          inputs[1].classList.add('error');
+          errors[1].classList.add('error');
+          errors[1].innerHTML = '用户已存在';
+          break;
+        case 3:
+          inputs[2].classList.add('error');
+          errors[2].classList.add('error');
+          errors[2].innerHTML = '密码格式不正确';
+          break;
+        case 4:
+          inputs[0].classList.add('error');
+          errors[0].classList.add('error');
+          errors[0].innerHTML = '邮箱格式不正确';
+          break;
+        case 5:
+          inputs[3].classList.add('error');
+          errors[3].classList.add('error');
+          errors[3].innerHTML = '密码不一致';
+          break;
+        }
+      })
+    } catch (error) {
+      console.error(error);
+    }
+  });
+</script>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(to bottom right, #ff9a9e, #fad0c4);
+  }
+
+  .container {
+    width: 650px;
+    height: 550px;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  h1 {
+    font-size: 50px;
+    color: #ff9a9e;
+    font-family: monospace;
+    margin-left: 50px;
+    margin-bottom: -50px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+  }
+
+  label {
+    font-size: 15px;
+    color: #ff9a9e;
+    font-family: monospace;
+  }
+
+  input{
+    height: 30px;
+    width: 500px;
+    border-radius: 5px;
+    border: 0;
+    background-color: #ffe9e3;
+    padding-left: 10px;
+    font-size: 15px;
+    /* margin-top: 10px; */
+  }
+
+  input.error {
+    border: 1px red solid;
+  }
+  input:focus {
+    outline: 0;
+    border: 1px solid #ff9a9e;
+  }
+
+  button {
+    width: 100px;
+    height: 50px;
+    border-radius: 5px;
+    background-color: #ff9a9e;
+    color: #fff;
+    cursor: pointer;
+    border: 0;
+    font-size: 17px;
+    margin-top: 20px;
+    transform: translateX(200px);
+  }
+
+  button:focus{
+    transform: translateX(200px) scale(0.98);
+    outline: 0;
+    border: 0;
+  }
+
+  a {
+    color: #ff9a9e;
+    transform: translate(280px,-50px);
+    text-decoration: none;
+    font-size: 18px;
+  }
+
+  a:visited {
+    color: #ff9a9e;
+  }
+
+  span {
+    display: none;
+  }
+
+  span.error {
+    display: block;
+    color: red;
+    font-size: 15px;
+  }
+</style>
+
+</html>
