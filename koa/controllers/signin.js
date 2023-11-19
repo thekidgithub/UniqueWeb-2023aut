@@ -1,5 +1,6 @@
 const fs = require('fs');
 const Users = require('../model');
+
 const getSignin = async (ctx, next) => {
   ctx.response.type = 'html';
   ctx.response.body = fs.createReadStream('./views/signin.html');

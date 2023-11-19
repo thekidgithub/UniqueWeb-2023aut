@@ -1,6 +1,7 @@
 const fs = require('fs');
 const Users = require('../model');
 const bcrypt = require('bcrypt');
+
 const getLogin = async (ctx, next) => {
   ctx.type = 'html';
   ctx.body = fs.createReadStream('./views/login.html');
@@ -17,14 +18,14 @@ const postLogin = async (ctx, next) => {
       if (passwordMatch) {
         ctx.status = 200;
         ctx.cookies.set('loggedIn', 'true');
-        ctx.cookies.set('username',JSON.stringify(username));
+        ctx.cookies.set('username', JSON.stringify(username));
       } else {
         ctx.status = 401;
-        responseArray.push({content:'wrong-password', code: 1});
+        responseArray.push({ content: 'wrong-password', code: 1 });
       }
     } else {
       ctx.status = 404;
-      responseArray.push({content:'existing-user', code: 2});
+      responseArray.push({ content: 'existing-user', code: 2 });
     }
     ctx.body = responseArray;
   } catch (error) {

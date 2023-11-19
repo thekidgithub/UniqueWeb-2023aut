@@ -1,6 +1,7 @@
 const fs = require('fs');
 const Users = require('../model');
 const bcrypt = require('bcrypt');
+
 const getChange = async (ctx, next) => {
   ctx.response.type = 'html';
   if (ctx.cookies.get('loggedIn') === 'true') {
