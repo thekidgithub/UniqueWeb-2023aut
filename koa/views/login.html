@@ -27,34 +27,31 @@
   const loginForm = document.querySelector('form');
   const inputs = document.querySelectorAll('input');
   const errors = document.querySelectorAll('span');
+  const showError = (index, message) => {
+    inputs[index].classList.add('error');
+    errors[index].classList.add('error');
+    errors[index].innerHTML = message;
+  }
   loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const username = loginForm.elements.username.value;
-    const password = loginForm.elements.password.value;
+    const { username: { value: username }, password: { value: password } } = loginForm.elements;
     inputs.forEach(e => e.classList.remove('error'));
     errors.forEach(e => e.classList.remove('error'));
     try {
       const response = await axios.post('/login', { username, password });
-      response.data.forEach(e => {
-        switch(e.code){
-          case 0:
-            window.location.href = '/';
-            break;
+      alert('登陆成功');
+      window.location.href = '/';
+    } catch (error) {
+      error.response.data.forEach(e => {
+        switch (e.code) {
           case 1:
-            inputs[0].classList.add('error');
-          errors[0].classList.add('error');
-          errors[0].innerHTML = '用户不存在';
-          break;
+            showError(1, '密码错误');
+            break;
           case 2:
-            inputs[1].classList.add('error');
-          errors[1].classList.add('error');
-          errors[1].innerHTML = '密码错误';
-          break;
+            showError(0, '用户不存在');
+            break;
         }
       })
-        
-    } catch (error) {
-      console.error(error);
     }
   });
 </script>
