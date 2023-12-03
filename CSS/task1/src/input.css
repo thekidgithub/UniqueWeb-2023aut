@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .up-links {
+    @apply block text-center text-0.8vw h-0.8vw  
+  }
+
+  .up-links-content {
+    @apply text-gray-400 hover:text-white
+  }
+
+  .up-lists {
+    @apply block relative text-center text-1vw h-2.5vw min-w-1/5
+  }
+
+  .up-list-divs {
+    @apply absolute z-10 opacity-0 flex invisible flex-col border-t-2 border-red-500 w-full transition
+  }
+
+  .up-list-links {
+    @apply block bg-white h-2.5vw leading-2.5vw hover:bg-red-100 hover:text-red-500  
+  }
+
+  .hidden-li {
+    @apply block w-full min-h-12 bg-red-600 pl-2 pr-2 pt-2 leading-12 border-b-1 border-red-400 sm:border-0 sm:bg-transparent sm:text-center sm:leading-2.5vw sm:h-2.5vw
+  }
+
+  .hidden-link {
+    @apply text-white text-base translate-y-1 sm:hover:text-red-600 sm:text-1vw
+  }
+
+  .hidden-button {
+    @apply transition-all origin-center block float-right text-base leading-12 text-white sm:hidden
+  }
+
+  .hidden-detail {
+    @apply w-full transition-all
+  }
+
+  .hidden-li-content {
+    @apply sm:block w-full h-10 leading-10 text-white text-sm sm:hover:text-red-500 sm:text-1vw sm:leading-2.5vw sm:h-2.5vw 
+  }
+
+  .hidden-down-link {
+    @apply block text-white text-sm text-center leading-12
+  }
+}

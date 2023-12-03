@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="../dist/output.css">
+</head>
+
+<body class="bg-gradient-to-b from-pink-300 to-purple-600 h-screen">
+  <div class="myperspective style3d relative w-full h-1/2 pt-20">
+    <div class="img mytransform1 bg-pic1 animate-carousel">
+    </div>
+    <div class="img mytransform2 bg-pic2 animate-carousel1">
+    </div>
+    <div class="img mytransform3 bg-pic3 animate-carousel2">
+    </div>
+  </div>
+  <div class="flex translate-x-200 translate-y-96 w-40 justify-between">
+    <div class="button bg-gray-400 "></div>
+    <div class="button bg-white "></div>
+    <div class="button bg-gray-400 "></div>
+  </div>
+</body>
+<script>
+  const mirror = [[], [2, 3, 1], [1, 2, 3], [3, 1, 2]];
+  let index = 2;
+  const buttons = document.querySelectorAll('.button');
+  const divs = document.querySelectorAll('.w-96');
+
+  setInterval(() => {
+    index++;
+    if(index < 1) index = 3;
+    if (index > 3) index = 1;
+    updateImage(index);
+  }, 1500);
+
+  buttons.forEach((e, i) => {
+    e.addEventListener('click', () => {
+      index = i + 1;
+      updateImage(index);
+
+    })
+  });
+
+  function updateImage(index) {
+    const regex = /mytransform[1-3]/;
+    divs.forEach((e, i) => {
+      e.classList.forEach(className => {
+        regex.test(className) && e.classList.remove(className);
+      });
+      e.classList.add(`mytransform${mirror[index][i]}`);
+    });
+    buttons.forEach((e1, i1) => {
+      e1.classList.remove('bg-gray-400');
+      e1.classList.remove('bg-white');
+      i1 + 1 === index ?
+        e1.classList.add('bg-white') :
+        e1.classList.add('bg-gray-400')
+    })
+  }
+  //1: 312 2: 123 3: 231
+</script>
+
+</html>
